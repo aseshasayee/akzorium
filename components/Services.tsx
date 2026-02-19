@@ -1,39 +1,47 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+import { motion } from "framer-motion";
 import { ArrowUpRight, Megaphone, Globe, Bot, Rocket } from "lucide-react";
 import TextReveal from "./TextReveal";
+import Link from "next/link";
 
 const services = [
     {
         id: "marketing",
-        title: "Marketing",
+        title: "Digital Marketing",
         icon: Megaphone,
-        items: ["Online ADs", "SEO", "Social Media Management", "Content Creation", "Personal Branding"],
-        desc: "We drive growth by turning attention into measurable results."
+        items: ["Online ADs", "SEO", "AEO & GEO", "Social Media Management", "Content Creation", "Personal Branding"],
+        desc: "We help people find your business online. We run ads on Google, Instagram, and more to get you leads.",
+        link: "/services/marketing",
+        buttonText: "Explore Marketing"
     },
     {
         id: "web",
-        title: "Web",
+        title: "Website Development",
         icon: Globe,
         items: ["Website Development", "Landing Pages", "E-commerce Websites"],
-        desc: "High-performance digital platforms engineered for scale."
+        desc: "We build websites that help you get customers. Professional sites and pages made to convert.",
+        link: "/services/web-development",
+        buttonText: "View Web Solutions"
     },
     {
-        id: "ai",
+        id: "tech",
         title: "AI & Automation",
         icon: Bot,
         items: ["Business Automations", "Chatbots", "AI Agent Solutions", "Custom AI Solutions"],
-        desc: "Leverage analytics to make informed, strategic decisions."
+        desc: "We use smart technology to save your time. Automate follow-ups, emails, and repetitive work.",
+        link: "/services/ai-automation",
+        buttonText: "See AI Agents"
     },
     {
         id: "growth",
-        title: "Growth",
+        title: "Growth & Funnels",
         icon: Rocket,
         items: ["Lead Generation Systems", "Sales Funnels", "Growth Strategy & Funnels"],
-        desc: "Build a scalable identity that resonates with premium audiences."
+        desc: "We build systems that turn visitors into customers. Strategies to bring you consistent leads.",
+        link: "/services/growth-funnels",
+        buttonText: "Grow Your Business"
     }
 ];
 
@@ -41,147 +49,112 @@ export default function Services() {
     const [hoveredId, setHoveredId] = useState<string | null>(null);
 
     return (
-        <section className="relative py-32 px-4 md:px-10 text-white overflow-hidden min-h-screen flex flex-col">
+        <section id="services" className="relative py-32 px-6 text-white overflow-visible min-h-[80vh] flex flex-col justify-center bg-black">
             {/* Header */}
-            <div className="mb-20 text-center">
+            <div className="mb-24 text-center">
                 <TextReveal
-                    text="Services"
-                    className="text-5xl md:text-7xl lg:text-9xl font-black uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-800 font-grand"
+                    text="Our Services"
+                    className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 font-grand"
                 />
+                <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3, duration: 0.6 }}
+                    className="text-gray-400 mt-6 max-w-2xl mx-auto text-lg md:text-xl font-light"
+                >
+                    Solutions designed for business growth.
+                </motion.p>
             </div>
 
-            {/* Cards Container - Flex for Expansion Effect */}
-            <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-4 min-h-[600px] items-stretch">
+            {/* Simplified Grid */}
+            {/* Simplified Grid -> Interactive Flex Layout */}
+            <div className="flex flex-col lg:flex-row gap-4 w-full max-w-[90rem] mx-auto min-h-[600px]">
                 {services.map((service, index) => {
                     const isHovered = hoveredId === service.id;
 
                     return (
-                        <motion.div
+                        <Link
+                            href={service.link}
                             key={service.id}
-                            layout
-                            initial={{
-                                opacity: 0,
-                                x: (1.5 - index) * 100,
-                                scale: 0.9,
-                            }}
-                            whileInView={{
-                                opacity: 1,
-                                x: 0,
-                                scale: 1,
-                            }}
-                            viewport={{ once: true }}
-                            transition={{
-                                layout: { duration: 0.4, type: "spring", stiffness: 200, damping: 25 },
-                                opacity: { duration: 0.5, delay: index * 0.1 }
-                            }}
-                            onHoverStart={() => setHoveredId(service.id)}
-                            onHoverEnd={() => setHoveredId(null)}
-                            onClick={() => setHoveredId(isHovered ? null : service.id)} // Mobile tap
-                            className={`relative border border-white/20 rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 group bg-black/40 hover:bg-white/5 hover:border-white/40 shadow-2xl ${isHovered ? "flex-[3]" : "flex-1"}`}
+                            className={`relative transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] flex flex-col ${isHovered ? 'lg:flex-[2.5]' : 'lg:flex-1'}`}
+                            onMouseEnter={() => setHoveredId(service.id)}
+                            onMouseLeave={() => setHoveredId(null)}
                         >
-                            {/* Card Background Image */}
-                            <div className="absolute inset-0 z-0">
-                                <motion.div
-                                    className="absolute inset-0 bg-black/80 z-10"
-                                    animate={{ opacity: isHovered ? 0.4 : 0.8 }}
-                                />
-                                <Image
-                                    src="/card bg.png"
-                                    alt="Card Background"
-                                    fill
-                                    className="object-cover opacity-50"
-                                />
-                            </div>
+                            <div
+                                className={`relative h-full flex flex-col justify-between p-8 rounded-3xl overflow-hidden border transition-all duration-500 ${isHovered ? 'border-white/80 bg-white/10 shadow-[0_0_30px_rgba(255,255,255,0.3),inset_0_0_20px_rgba(255,255,255,0.1)]' : 'border-white/30 bg-white/5 shadow-[inset_0_0_20px_rgba(255,255,255,0.05)]'} backdrop-blur-md group`}
+                            >
+                                {/* Fluid Hover Gradient Background */}
+                                <div className={`absolute inset-0 bg-gradient-to-b from-white/5 to-transparent transition-opacity duration-500 pointer-events-none ${isHovered ? 'opacity-100' : 'opacity-0'}`} />
 
-                            {/* Content */}
-                            <div className="absolute inset-0 p-8 flex flex-col z-20">
-                                {/* Top: Icon and Arrow */}
-                                <div className="flex justify-between items-start mb-6">
-                                    <div className={`w-12 h-12 rounded-full border border-white/20 flex items-center justify-center bg-white/5 backdrop-blur-sm transition-colors duration-300 ${isHovered ? "bg-white text-black" : "text-gray-400 group-hover:text-white"}`}>
-                                        <service.icon size={20} />
+                                {/* Content Top */}
+                                <div className="relative z-10">
+                                    <div className="flex justify-between items-start mb-8">
+                                        <div className={`p-4 rounded-2xl transition-all duration-500 ${isHovered ? 'bg-white text-black scale-110' : 'bg-white/10 text-white'}`}>
+                                            <service.icon size={isHovered ? 32 : 28} />
+                                        </div>
+                                        <ArrowUpRight className={`transition-all duration-500 ${isHovered ? 'text-white rotate-45' : 'text-gray-500'}`} />
                                     </div>
-                                    <div className={`p-2 rounded-full border border-white/20 bg-black/20 transition-all duration-300 ${isHovered ? "bg-white text-black rotate-45" : "text-gray-400"}`}>
-                                        <ArrowUpRight size={20} />
-                                    </div>
+
+                                    <h3 className={`font-bold mb-4 leading-tight transition-all duration-500 ${isHovered ? 'text-3xl text-white' : 'text-2xl text-gray-200'}`}>
+                                        {service.title}
+                                    </h3>
+
+                                    <p className={`text-gray-400 leading-relaxed transition-all duration-500 ${isHovered ? 'text-lg opacity-100 max-h-48' : 'text-base opacity-80 lg:max-h-24 overflow-hidden'}`}>
+                                        {service.desc}
+                                    </p>
                                 </div>
 
-                                {/* Vertical Title - Centered in Card */}
-                                <AnimatePresence>
-                                    {!isHovered && (
-                                        <motion.div
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            transition={{ duration: 0.3 }}
-                                            className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
-                                        >
-                                            <h3 className="text-2xl font-bold uppercase tracking-wider font-grand -rotate-90 whitespace-nowrap text-white/50">
-                                                {service.title}
-                                            </h3>
-                                        </motion.div>
+                                {/* Content Bottom */}
+                                <div className="relative z-10 mt-auto pt-8">
+                                    {isHovered ? (
+                                        <div className="mb-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                                            <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-3">
+                                                Services We offer:
+                                            </p>
+                                            <ul className="grid grid-cols-1 gap-y-2">
+                                                {service.items.map(item => (
+                                                    <li key={item} className="text-sm text-gray-200 flex items-center gap-2">
+                                                        <span className="w-1.5 h-1.5 bg-blue-500 rounded-full" />
+                                                        {item}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    ) : (
+                                        <div className="flex flex-wrap gap-2 mb-6">
+                                            {service.items.slice(0, 3).map(item => (
+                                                <span key={item} className="text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-full border border-white/10 bg-black/40 text-gray-400">
+                                                    {item}
+                                                </span>
+                                            ))}
+                                            {service.items.length > 3 && (
+                                                <span className="text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-full border border-white/10 bg-black/40 text-gray-400">
+                                                    +{service.items.length - 3}
+                                                </span>
+                                            )}
+                                        </div>
                                     )}
-                                </AnimatePresence>
 
-                                <div className="mt-auto relative z-30">
-                                    {/* Horizontal Title - Visible on Hover */}
-                                    <AnimatePresence>
-                                        {isHovered && (
-                                            <motion.h3
-                                                initial={{ opacity: 0, x: -20 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                exit={{ opacity: 0 }}
-                                                transition={{ duration: 0.3 }}
-                                                className="text-3xl md:text-5xl font-black uppercase tracking-tighter font-grand text-white mb-4"
-                                            >
-                                                {service.title}
-                                            </motion.h3>
-                                        )}
-                                    </AnimatePresence>
-
-                                    {/* Description vs Detailed List */}
-                                    <AnimatePresence mode="wait">
-                                        {isHovered && (
-                                            <motion.div
-                                                initial={{ opacity: 0, y: 20 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                exit={{ opacity: 0, y: 10 }}
-                                                transition={{ delay: 0.1, duration: 0.3 }}
-                                                className="mt-4 space-y-4"
-                                            >
-                                                <p className="text-sm text-gray-300 font-sans max-w-lg mb-6">
-                                                    {service.desc}
-                                                </p>
-
-                                                <div className="h-[1px] w-full bg-white/10" />
-
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                    {service.items.map((item, idx) => (
-                                                        <motion.div
-                                                            key={item}
-                                                            initial={{ opacity: 0, x: -10 }}
-                                                            animate={{ opacity: 1, x: 0 }}
-                                                            transition={{ delay: 0.2 + (idx * 0.05) }}
-                                                            className="flex items-center gap-3 text-sm md:text-base text-gray-200"
-                                                        >
-                                                            <div className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
-                                                            <span>{item}</span>
-                                                        </motion.div>
-                                                    ))}
-                                                </div>
-
-                                                <div className="pt-6">
-                                                    <button className="px-8 py-3 rounded-full bg-white text-black text-sm font-bold uppercase tracking-wide hover:bg-gray-200 transition-colors w-max">
-                                                        Explore {service.title}
-                                                    </button>
-                                                </div>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
+                                    {/* Reveal Button */}
+                                    <div className={`overflow-hidden transition-all duration-500 ease-out ${isHovered ? 'max-h-20 opacity-100 translate-y-0' : 'max-h-0 opacity-0 translate-y-4'}`}>
+                                        <button className="w-full py-4 rounded-xl bg-white text-black font-bold uppercase tracking-wide hover:bg-gray-200 transition-colors shadow-lg">
+                                            {service.buttonText}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </motion.div>
+                        </Link>
                     );
                 })}
+            </div>
+
+            <div className="mt-16 text-center">
+                <Link href="/contact">
+                    <button className="px-8 py-3 rounded-full bg-white text-black font-bold uppercase tracking-wide hover:scale-105 transition-transform duration-300">
+                        Get a Quote
+                    </button>
+                </Link>
             </div>
         </section>
     );

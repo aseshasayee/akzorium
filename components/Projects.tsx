@@ -14,13 +14,13 @@ const projects = [
 
 export default function Projects() {
     return (
-        <section className="relative py-32 px-6 overflow-hidden bg-transparent">
-            <div className="max-w-7xl mx-auto">
+        <section id="works" className="relative py-32 px-6 overflow-hidden bg-transparent">
+            <div className="max-w-[90rem] mx-auto">
                 {/* Header */}
-                <div className="mb-20 text-center">
+                <div className="mb-24 text-center">
                     <TextReveal
-                        text="Projects"
-                        className="text-5xl md:text-7xl lg:text-9xl font-black uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-800 font-grand"
+                        text="Selected Works"
+                        className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 font-grand"
                     />
                 </div>
 
@@ -33,7 +33,7 @@ export default function Projects() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            className="group relative aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 hover:border-white/30 transition-all duration-500 bg-white/5 backdrop-blur-sm"
+                            className="group relative aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 hover:border-white/30 transition-all duration-500 bg-white/5 backdrop-blur-md"
                         >
                             {/* Placeholder Background */}
                             <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-50 transition-opacity duration-500 group-hover:opacity-80" />

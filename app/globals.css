@@ -8,7 +8,12 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-regular), sans-serif;
+  --font-sans: var(--font-garet-book), sans-serif;
+  --font-grand: var(--font-grand), sans-serif;
+  --font-text-bold: var(--font-text-bold), sans-serif;
+  --font-light: var(--font-light), sans-serif;
+  --font-garet-book: var(--font-garet-book), sans-serif;
+  --font-garet-heavy: var(--font-garet-heavy), sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
@@ -22,7 +27,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-regular), sans-serif;
+  font-family: var(--font-garet-book), sans-serif;
 }
 
 h1,
